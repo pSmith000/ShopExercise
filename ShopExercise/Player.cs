@@ -62,18 +62,18 @@ namespace ShopExercise
             return itemNames;
         }
 
-        /*
-        public override void Save(StreamWriter writer)
+        
+        public void Save(StreamWriter writer)
         {
             writer.WriteLine(_gold);
-            base.Save(writer);
+            Save(writer);
             writer.WriteLine(_inventory);
         }
 
-        public override bool Load(StreamReader reader)
+        public bool Load(StreamReader reader)
         {
             //if the base loading function fails...
-            if (!base.Load(reader))
+            if (!Load(reader))
             {
                 //...return false
                 return false;
@@ -88,7 +88,7 @@ namespace ShopExercise
 
             //Return whether or not the item was equipped successfully
             return true;
-            */
-        
+
+        }
     }
 }

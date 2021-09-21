@@ -16,7 +16,7 @@ namespace ShopExercise
         private Player _player;
         private Shop _shop;
         private bool _gameOver;
-        private int _currentScene;
+        private int _currentScene = 0;
 
         public void Run()
         {
@@ -25,22 +25,28 @@ namespace ShopExercise
 
         private void Start()
         {
+            InitializeItems();
 
         }
 
         private void Update()
         {
 
+
         }
 
         private void End()
         {
-
+            
         }
 
-        private void InitializeItems()
+        public void InitializeItems()
         {
+            Item sword = new Item { Name = "Sword", Cost = 500 };
+            Item shield = new Item { Name = "Shield", Cost = 10 };
+            Item healthPotion = new Item { Name = "Health Potion", Cost = 15 };
 
+            
         }
 
         int GetInput(string description, params string[] options)
@@ -91,20 +97,70 @@ namespace ShopExercise
             return inputRecieved;
         }
 
-        public void Save()
+        private void Save()
         {
             //Create a new stream writer
             StreamWriter writer = new StreamWriter("Inventory.txt");
 
-            //Save current enemy index
-            writer.WriteLine(_inventory);
+            writer.WriteLine(_currentScene);
 
-            //Save player and enemy stats
+            //Save player stats
             _player.Save(writer);
-            _currentEnemy.Save(writer);
 
             //Close the writer when done saving
             writer.Close();
+        }
+
+        private bool Load()
+        {
+
+        }
+
+        private void DisplayCurrentScene()
+        {
+            switch (_currentScene)
+            {
+                case 0:
+                    DisplayOpeningMenu();
+                    break;
+                case 1:
+                    DisplayShopMenu();
+                    break;
+            }
+
+        }
+
+        private void DisplayOpeningMenu()
+        {
+            int choice = GetInput("Welcome to the RPG Shop Simulator! What would you like to do?", "Start Shopping", "Load Inventory");
+
+            if (choice == 1)
+            {
+                _currentScene = 1;
+            }
+            else
+            {
+                _currentScene = 0;
+            }
+            
+        }
+
+        public string[] GetShopMenuOptions()
+        {
+            string[] options = new string[] { "Sword", "Shield", "Health Potion", "Save Game", "load Inventory" };
+
+            return options;
+            
+        }
+
+        private void DisplayShopMenu()
+        {
+            Console.WriteLine("Your gold: " + _player.Gold);
+            Console.WriteLine("Your Inventory: " + _player.Inventory);
+
+            int choice = GetInput("What would you like to purchase?", GetShopMenuOptions());
+
+            
         }
 
     }

@@ -107,11 +107,11 @@ namespace ShopExercise
             {
                 _inventory[i].Name = reader.ReadLine();
 
-                if (!int.TryParse(reader.ReadLine(), out _inventory[i).Cost))
+                if (!int.TryParse(reader.ReadLine(), out _inventory[i].Cost))
                 {
                     return false;
                 }
-                i++
+                i++;
             }
 
             return true;

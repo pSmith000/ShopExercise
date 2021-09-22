@@ -102,10 +102,12 @@ namespace ShopExercise
             //Create a new stream writer
             StreamWriter writer = new StreamWriter("Inventory.txt");
 
-            writer.WriteLine(_currentScene);
+            //Save current enemy index
+            writer.WriteLine(_inventory);
 
-            //Save player stats
+            //Save player and enemy stats
             _player.Save(writer);
+            _currentEnemy.Save(writer);
 
             //Close the writer when done saving
             writer.Close();
@@ -165,3 +167,7 @@ namespace ShopExercise
 
     }
 }
+
+            writer.WriteLine(_currentScene);
+            //Save player stats
+            _player.Save(writer);

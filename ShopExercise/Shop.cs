@@ -18,7 +18,10 @@ namespace ShopExercise
         {
             if (player.Gold < _inventory[option].Cost)
             {
-                Console.WriteLine("You don't have funds.");
+                Console.Clear();
+                Console.WriteLine("You don't have enough funds.");
+                Console.ReadKey(true);
+                Console.Clear();
                 return false;
             }
 

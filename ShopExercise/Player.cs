@@ -79,18 +79,6 @@ namespace ShopExercise
         
         public bool Load(StreamReader reader)
         {
-            //if the base loading function fails...
-            if (!Load(reader))
-            {
-                //...return false
-                return false;
-            }
-
-            if (!int.TryParse(reader.ReadLine(), out _gold))
-            {
-                //...return false
-                return false;
-            }
 
             int inventoryLength = 0;
 

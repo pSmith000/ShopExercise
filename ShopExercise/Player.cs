@@ -10,6 +10,8 @@ namespace ShopExercise
         private int _gold;
         private Item[] _inventory;
 
+        
+
         public int Gold
         {
             get
@@ -18,23 +20,16 @@ namespace ShopExercise
             }
         }
 
-        public Item[] Inventory
-        {
-            get
-            {
-                return _inventory;
-            }
-        }
-
         public Player(int gold)
         {
             _gold = gold;
+            _inventory = new Item[0];
         }
 
         public void Buy(Item item)
         {
             //Create a new array with the size of the old array
-            Item[] newArray = new Item[_inventory.Length + 1];
+            Item[] newArray = new Item[ _inventory.Length + 1];
 
             //Copy the values from the old array
             for (int i = 0; i < _inventory.Length; i++)
@@ -43,8 +38,12 @@ namespace ShopExercise
             }
 
             //set the last index to be the new item
-            ///Commented out code
-            //newArray[newArray.Length - 1] = value;
+            
+            newArray[_inventory.Length] = item;
+
+            _inventory = newArray;
+
+            _gold = _gold - item.Cost;
 
             //return the new array
             return;
@@ -66,10 +65,18 @@ namespace ShopExercise
         public void Save(StreamWriter writer)
         {
             writer.WriteLine(_gold);
-            Save(writer);
-            writer.WriteLine(_inventory);
+
+            writer.WriteLine(_inventory.Length);
+
+            for (int i = 0; i < _inventory.Length; i++)
+            {
+                writer.WriteLine(_inventory[i].Name);
+                writer.WriteLine(_inventory[i].Cost);
+            }
+            
         }
 
+        
         public bool Load(StreamReader reader)
         {
             //if the base loading function fails...
@@ -79,16 +86,38 @@ namespace ShopExercise
                 return false;
             }
 
-            //If the current line can't be converte into an int...
-            if (!int.TryParse(reader.ReadLine(), out _inventory))
+            if (!int.TryParse(reader.ReadLine(), out _gold))
             {
                 //...return false
                 return false;
             }
 
-            //Return whether or not the item was equipped successfully
+            int inventoryLength = 0;
+
+            if (!int.TryParse(reader.ReadLine(), out inventoryLength))
+            {
+                return false;
+            }
+
+            _inventory = new Item[inventoryLength];
+
+            int i = 0;
+
+            while (!reader.EndOfStream)
+            {
+                _inventory[i].Name = reader.ReadLine();
+
+                if (!int.TryParse(reader.ReadLine(), out _inventory[i).Cost))
+                {
+                    return false;
+                }
+                i++
+            }
+
             return true;
 
         }
+        
+        
     }
 }

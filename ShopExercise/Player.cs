@@ -89,9 +89,7 @@ namespace ShopExercise
 
             _inventory = new Item[inventoryLength];
 
-            int i = 0;
-
-            while (!reader.EndOfStream)
+            for (int i = 0; i < _inventory.Length; i++)
             {
                 _inventory[i].Name = reader.ReadLine();
 
@@ -99,7 +97,6 @@ namespace ShopExercise
                 {
                     return false;
                 }
-                i++;
             }
 
             return true;

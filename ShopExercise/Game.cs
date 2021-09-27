@@ -272,33 +272,25 @@ namespace ShopExercise
             }
 
             int choice = GetInput("\nWhat would you like to purchase?", GetShopMenuOptions());
-
-            if (choice == 0)
-            {
-                _shop.Sell(_player, 0);
-            }
-            else if (choice == 1)
-            {
-                _shop.Sell(_player, 1);
-            }
-            else if (choice == 2)
-            {
-                _shop.Sell(_player, 2);
-            }
-            else if (choice == 3)
+            string[] shopInventory = _shop.GetItemNames();
+            if (choice == shopInventory.Length)
             {
                 Save();
                 Console.WriteLine("Saved Game");
                 Console.ReadKey(true);
                 Console.Clear();
             }
-            else if (choice == 4)
+            else if (choice == shopInventory.Length + 1)
             {
                 _gameOver = true;
+                return;
+            }
+            else if (!_shop.Sell(_player, choice))
+            {
             }
 
 
-            
+
         }
 
     }
